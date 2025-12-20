@@ -1,9 +1,9 @@
-
+import Gallery from './components/Gallery/Gallery';
 
 function App() {
 
   return (
-    <div>Image Gallery</div>
+    <main><Gallery /></main>
   )
 }
 
