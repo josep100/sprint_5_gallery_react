@@ -8,8 +8,10 @@ export interface Photo {
 }
 
 export interface ImageItemProps {
+  id: string;
   url: string;
   author: string;
-  isHighlighted: boolean;
+  isFeatured?: boolean;
+  onDelete: (id: string) => void;
 };
 

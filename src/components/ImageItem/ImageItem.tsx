@@ -1,25 +1,29 @@
-import type { ImageItemProps } from "../../types/photo";
+import type { ImageItemProps } from "@/types/photo";
+import { Trash2 } from 'lucide-react';
 import {
   Card,
   CardContent,
   CardFooter,
 } from "@/components/ui/card"
 
-const ImageItem = ({url, author, isHighlighted}: ImageItemProps) => {
+const ImageItem = ({url, author, isFeatured, onDelete, id}: ImageItemProps) => { 
         
     return (
-        
-            <Card className={isHighlighted ? "col-span-2 row-span-3" : ""}>
+            <Card className={isFeatured ? "col-span-2 row-span-3" : ""}>
                 <CardContent>
                         <figure>
                             <img src={url} alt={author} />
                         </figure> 
                 </CardContent>
                 <CardFooter className="flex-col gap-2">
-                    {author}
+                   <p className="w-full flex justify-around items-center">
+                        {author}
+                         <Trash2 className="cursor-pointer size-7 text-[#ff1a1a] stroke-[2.25px]" onClick = {() => {
+                             onDelete(id);
+                         }} /> 
+                    </p>
                 </CardFooter>
             </Card>
-       
     );
 
 }
