@@ -6,10 +6,16 @@ import {
   CardFooter,
 } from "@/components/ui/card"
 
-const ImageItem = ({url, author, isFeatured, onDelete, id}: ImageItemProps) => { 
+const ImageItem = ({index, id, url, author, isFeatured, onDelete, handleOnDragStart, handleOnDragOver, handleOnDrop }: ImageItemProps) => { 
         
     return (
-            <Card className={isFeatured ? "col-span-2 row-span-3" : ""}>
+            <Card 
+                draggable 
+                onDragStart = {() => handleOnDragStart(index)} 
+                onDragOver = {e => handleOnDragOver(e, index)} 
+                onDrop = {() => handleOnDrop()} 
+                className={isFeatured ? "col-span-2 row-span-3" : ""}
+            >
                 <CardContent>
                         <figure>
                             <img src={url} alt={author} />
