@@ -12,6 +12,9 @@ export interface ImageItemProps {
   url: string;
   author: string;
   isFeatured?: boolean;
+  isSelected?: boolean;
+  hasSelection?: boolean;
   onDelete: (id: string) => void;
+  onToggleSelect: (id: string) => void;
 };
 

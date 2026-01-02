@@ -9,7 +9,10 @@ const ImageItem = ({
   url,
   author,
   isFeatured,
-  onDelete
+  isSelected,
+  hasSelection,
+  onDelete,
+  onToggleSelect
 }: ImageItemProps) => {
   const {
     attributes,
@@ -26,18 +29,30 @@ const ImageItem = ({
   };
 
   return (
-    <Card ref={setNodeRef} style={style} {...attributes} className={`${isFeatured ? "col-span-2 row-span-3" : ""} ${isDragging ? "cursor-grabbing col-span-1 row-span-1" : "cursor-grab"}`}>
+    <Card 
+        ref={setNodeRef} 
+        style={style} 
+        {...attributes} 
+        className={
+            `${isFeatured ? "col-span-2 row-span-3" : ""} 
+            ${isDragging ? "col-span-1 row-span-1" : ""}
+             ${isSelected? "border-15px border-black" : ""}`} 
+        onClick={() => onToggleSelect(id)}
+      >
       <CardContent>
-        <figure {...listeners} >
+        <figure className={`cursor-grab ${isDragging ? "cursor-grabbing col-span-1 row-span-1" : ""}}`} {...listeners} >
           <img src={url} alt={author} />
         </figure>
       </CardContent>
-      <CardFooter className="flex-col gap-2">
+      <CardFooter className=" cursor-pointer flex-col gap-2">
         <p className="w-full flex justify-around items-center">
           {author}
           <Trash2
-            className="cursor-pointer size-7 text-[#ff1a1a] stroke-[2.25px]"
-            onClick={() => onDelete(id)}
+            className={`transition-all duration-300 ease-in-out ${hasSelection ? "opacity-0": "cursor-pointer size-7 text-[#ff1a1a] stroke-[2.25px] opacity-100"}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(id)
+            }}
           />
         </p>
       </CardFooter>
