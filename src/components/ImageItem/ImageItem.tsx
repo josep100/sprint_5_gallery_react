@@ -30,13 +30,14 @@ const ImageItem = ({
 
   return (
     <Card 
-        ref={setNodeRef} 
+        ref={setNodeRef}
+        data-testid="image-item-card"
         style={style} 
         {...attributes} 
         className={
-            `${isFeatured ? "col-span-2 row-span-3" : ""} 
+            `${isFeatured ? "col-span-2 row-span-2" : ""} 
             ${isDragging ? "col-span-1 row-span-1" : ""}
-             ${isSelected? "border-15px border-black" : ""}`} 
+             ${isSelected? "border-3 border-black" : ""}`} 
         onClick={() => onToggleSelect(id)}
       >
       <CardContent>
@@ -47,13 +48,17 @@ const ImageItem = ({
       <CardFooter className=" cursor-pointer flex-col gap-2">
         <p className="w-full flex justify-around items-center">
           {author}
+          <button
+              aria-label="Delete Image"
+              onClick={(e) => {
+                e.stopPropagation(); // opcional, si quieres que no afecte a la selección
+                onDelete(id);
+              }}
+          >
           <Trash2
             className={`transition-all duration-300 ease-in-out ${hasSelection ? "opacity-0": "cursor-pointer size-7 text-[#ff1a1a] stroke-[2.25px] opacity-100"}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete(id)
-            }}
           />
+          </button>
         </p>
       </CardFooter>
     </Card>

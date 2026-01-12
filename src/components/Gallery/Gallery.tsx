@@ -60,25 +60,24 @@ const Gallery = () => {
   return (
       <>
           <header
+              aria-hidden={!hasSelection}
               className={`
                 fixed top-0 left-0 right-0
-                flex
-                justify-end
-                items-center
-                gap-4
-                p-3
-                bg-black/30
+                flex justify-end items-center gap-4 p-3
+                bg-black/60
                 overflow-hidden
                 text-white
-                z-0
+                
                 transition-all duration-300 ease-in-out
                 ${hasSelection
-                  ? "max-h-20 opacity-100 pointer-coarse:"
-                  : "max-h-0 opacity-0"}
+                  ? "max-h-20 opacity-100 pointer-events-auto"
+                  : "max-h-0 opacity-0 pointer-events-none "}
               `}
           >
               <p>Seleccionados {selectedIds.size}</p>
-              <Trash2 onClick={() => handleDeleteSelected()} className="rounded-full bg-black text-white p-1.5 size-9 cursor-pointer" />
+              <button aria-label="delete selected images" onClick={() => handleDeleteSelected()}>
+                  <Trash2 className="rounded-full bg-red-500 text-white p-1.5 size-9 cursor-pointer" />
+              </button>
           </header>
           <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
               <SortableContext items={gallery.map(photo => photo.id)}>
